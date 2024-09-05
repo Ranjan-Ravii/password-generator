@@ -15,20 +15,29 @@ function App() {
     let pass = ""
     let str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
+    let requiredChars = ""
+
     if (numsAllowed) {
       str += '0123456789'
-      pass += '012346789'.charAt(Math.floor(Math.random() * 10))
+      requiredChars += '012346789'.charAt(Math.floor(Math.random() * 10))
     }
 
     if (charsAllowed) {
       str += '@$%-'
-      pass += '@$%-'.charAt(Math.floor(Math.random() * 4))
+      requiredChars += '@$%-'.charAt(Math.floor(Math.random() * 4))
     }
 
-    for (let i = 1; i <= length; i++) {
+    const totalLength = length - requiredChars.length
+
+    for (let i = 1; i <= totalLength; i++) {
       let randomIndex = Math.floor(Math.random() * str.length)
       pass += str.charAt(randomIndex)
     }
+
+    pass += requiredChars
+
+    pass = pass.split('').sort(() => Math.random() - 0.5).join('');
+
 
     setPassword(pass)
 
